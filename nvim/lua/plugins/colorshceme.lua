@@ -1,27 +1,42 @@
 return {
-  { "Mofiqul/dracula.nvim" },
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "dracula",
-    },
+    "nobbmaestro/nvim-andromeda",
+    "nvim-lualine/lualine.nvim",
+    { "tjdevries/colorbuddy.nvim", branch = "dev" },
+    config = function()
+      local andromeda_lualine = require("andromeda.plugins.lualine")
+      require("andromeda").setup({
+        preset = "andromeda",
+        transparent_bg = true,
+        styles = {
+          italic = true,
+        },
+      })
+      require("lualine").setup({
+        options = {
+          theme = andromeda_lualine.theme,
+        },
+        sections = andromeda_lualine.sections,
+        inactive_sections = andromeda_lualine.inactive_sections,
+      })
+    end,
   },
-  -- Setting up the dracula theme.
+
   {
     "Mofiqul/dracula.nvim",
     config = function()
       local dracula = require("dracula")
       dracula.setup({
         colors = {
-          bg = "#282A36",
+          bg = "#000000",
           fg = "#ffffff",
           selection = "#44475A",
           comment = "#bfc1c2",
           red = "#FF5555",
           orange = "#FFB86C",
-          yellow = "#ffc40c",
+          yellow = "#F1FA8C",
           green = "#50fa7b",
-          purple = "#9457eb",
+          purple = "#BD93F9",
           cyan = "#00ced1",
           pink = "#FF79C6",
           bright_red = "#FF6E6E",
@@ -39,9 +54,16 @@ return {
           black = "#191A21",
         },
         show_end_of_buffer = true,
-        transparent_bg = true,
+        transparent_bg = false,
         italic_comment = true,
       })
     end,
+  },
+
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "andromeda",
+    },
   },
 }
